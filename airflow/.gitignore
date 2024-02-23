@@ -1,0 +1,5 @@
+google_secret.json
+standalone_admin_password.txt
+airflow-webserver.pid
+
+logs
