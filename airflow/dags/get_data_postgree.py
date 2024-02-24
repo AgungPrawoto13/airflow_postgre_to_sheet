@@ -6,6 +6,9 @@ import pytz
 from airflow import DAG
 from datetime import datetime, timedelta
 
+from pendulum import timezone
+from airflow.timetables.cron import cron_timetable
+from airflow.timetables.interval import CronDataIntervalTimetable
 from airflow.operators.python_operator import PythonOperator
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 
@@ -24,7 +27,7 @@ def convert_time(time):
 def send_to_sheet(ti, **context):
     try:
         gc = gspread.service_account(filename="google_secret.json")
-        sh = gc.open_by_key("1CDqjVawY8aKLQD6ycQoQ6mUQ4TSbdrO5lh6MuxdaLhQ").get_worksheet(1)
+        sh = gc.open_by_key("1CDqjVawY8aKLQD6ycQoQ6mUQ4TSbdrO5lh6MuxdaLhQ").sheet1
         
         context['please1']
         data = ti.xcom_pull(task_ids='get_data')
@@ -40,22 +43,16 @@ def send_to_sheet(ti, **context):
         logging.error(f"Error occurred while sending data to sheet: {str(e)}")
         raise
 
-# default_args = {
-#     'owner': 'airflow',
-#     'depends_on_past': False,
-#     'start_date': datetime(2024, 2, 20),
-#     'email': ['airflow@example.com'],
-#     'email_on_failure': False,
-#     'email_on_retry': False,
-#     'retries': 1,
-#     'retry_delay': timedelta(minutes=5),
-#     'schedule_interval': '@hourly'
-# }
+# def cron_timetable(*args, **kwargs):
+#     return CronDataIntervalTimetable(kwargs['cron_expression'])
+
+jakarta_tz = timezone("Asia/Jakarta")
 
 with DAG(
-    dag_id="get_data_postgree",
-    start_date=datetime(2024, 2, 19),
-    schedule_interval='@hourly',
+    dag_id = "get_data_postgree",
+    start_date = datetime(2024, 2, 19),
+    timetable=cron_timetable('36 12 * * *', timezone=jakarta_tz),
+    #schedule_interval=CronTriggerTimetable('36 12 * * *'),
     catchup=False,
 ) as dag:
 
@@ -78,11 +75,11 @@ with DAG(
             t.unit_price as "UnitPrice",
             '5' as DurationMinutes,
             now() as "etl_timestamp",
-            'Agung Prawoto' as StudentName
+            'Coba' as StudentName
             from albums s
             inner join artists a on s.artist_id = a.id 
             inner join tracks t on s.id = t.album_id  
-            limit 2
+            limit 1
         """
     )
 
