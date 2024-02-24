@@ -24,7 +24,7 @@ def convert_time(time):
 def send_to_sheet(ti, **context):
     try:
         gc = gspread.service_account(filename="google_secret.json")
-        sh = gc.open_by_key("1CDqjVawY8aKLQD6ycQoQ6mUQ4TSbdrO5lh6MuxdaLhQ").sheet1
+        sh = gc.open_by_key("1CDqjVawY8aKLQD6ycQoQ6mUQ4TSbdrO5lh6MuxdaLhQ").get_worksheet(1)
         
         context['please1']
         data = ti.xcom_pull(task_ids='get_data')
@@ -78,7 +78,7 @@ with DAG(
             t.unit_price as "UnitPrice",
             '5' as DurationMinutes,
             now() as "etl_timestamp",
-            'Uhuy' as StudentName
+            'Agung Prawoto' as StudentName
             from albums s
             inner join artists a on s.artist_id = a.id 
             inner join tracks t on s.id = t.album_id  
