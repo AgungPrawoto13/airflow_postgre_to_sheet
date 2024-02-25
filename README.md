@@ -8,7 +8,7 @@ The data I'm using is dummy data provided by the bootcamp instructor. The hope i
 ![Flow](flow_project.jpg)
 
 ## Result Job
-![Flow](result_job.jpg)
+![Flow](result_job.JPG)
 
 ## Tools
 ### Postgre SQL
