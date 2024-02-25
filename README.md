@@ -20,8 +20,10 @@ Apache Airflow is an open-source workflow orchestration platform that enables yo
 ### Kredensial Google Sheet:
 Google Sheet Credentials are authentication information that allows external applications or tools to access and manage data in Google Sheets. These credentials consist of a Client ID and Client Secret, which can be obtained from the Google Cloud Platform (GCP)
 
-##Getting Started
+## Getting Started
 ### Prerequisites
 - [Practice Handson](https://docs.google.com/spreadsheets/d/1CDqjVawY8aKLQD6ycQoQ6mUQ4TSbdrO5lh6MuxdaLhQ/edit#gid=0)
 
 ### Configuration
+1. Create your google sheet Credentials [Get Credentials Google Sheet](https://medium.com/@a.marenkov/how-to-get-credentials-for-google-sheets-456b7e88c430)
+2. Create postgres database at [neon](https://neon.tech/).
