@@ -5,8 +5,8 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://agungprawoto997:KmapGxCnSE92@ep-soft-scene-a5wrflfj.us-east-2.aws.neon.tech/chinook
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://agungprawoto997:KmapGxCnSE92@ep-soft-scene-a5wrflfj.us-east-2.aws.neon.tech/chinook
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://user:pass@database/chinook
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://user:pass@database/chinook
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
@@ -42,8 +42,8 @@ services:
   postgres:
     image: postgres:13
     environment:
-      POSTGRES_USER: agungprawoto997
-      POSTGRES_PASSWORD: KmapGxCnSE92
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: pass
       POSTGRES_DB: chinook
     
     ports:
